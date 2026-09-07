@@ -1,0 +1,652 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SIMPANA DESIGN TOKENS
+   Palette taken from the logo: navy + blue puzzle pieces with a
+   green accent. Light, professional, high-contrast.
+   Everything else in the app uses Tailwind utilities built from
+   these tokens - there are no other hardcoded colours.
+   ============================================================ */
+
+@theme {
+  /* Brand blues - 300 is the logo's light piece, 600 the wordmark,
+     800 the dark piece. */
+  --color-brand-50: #eef5fb;
+  --color-brand-100: #d8e8f5;
+  --color-brand-200: #b4d2ea;
+  --color-brand-300: #8dbbd8;
+  --color-brand-400: #5c9ccb;
+  --color-brand-500: #3a86c8;
+  --color-brand-600: #2b6ca3;
+  --color-brand-700: #21537e;
+  --color-brand-800: #1b3a5c;
+  --color-brand-900: #0f2a44;
+
+  /* Green accent - the logo's other puzzle piece. Used sparingly:
+     highlights, check marks, "deployed" markers. */
+  --color-leaf-50: #f2f8e9;
+  --color-leaf-100: #e3f0cf;
+  --color-leaf-300: #c3db9c;
+  --color-leaf-400: #a9c97e;
+  --color-leaf-500: #8fbc5a;
+  --color-leaf-600: #6f9a3f;
+  --color-leaf-700: #557a2d;
+
+  /* Neutrals - cool greys so they sit with the blues. */
+  --color-ink-900: #0f1f2e; /* headings          — 15.9:1 on white */
+  --color-ink-800: #1d3245; /* strong body       — 12.2:1 */
+  --color-ink-700: #2b4257; /* default body      —  9.4:1 */
+  --color-ink-600: #3f5b73; /* secondary copy    —  6.6:1 */
+  --color-ink-500: #56728a; /* muted labels      —  4.8:1 */
+  --color-ink-400: #7d93a6; /* decorative only   — below AA for body */
+  --color-line: #dde6ee;
+  --color-line-strong: #c3d2df;
+  --color-surface: #ffffff;
+  --color-surface-2: #f5f8fb;
+  --color-surface-3: #eaf1f7;
+
+  /* Type */
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Layout */
+  --spacing-container: 1200px;
+
+  /* Elevation - soft, blue-tinted, never grey mud. */
+  --shadow-card:
+    0 1px 2px rgba(15, 42, 68, 0.04), 0 8px 24px -12px rgba(15, 42, 68, 0.12);
+  --shadow-card-hover:
+    0 2px 4px rgba(15, 42, 68, 0.06), 0 18px 40px -16px rgba(15, 42, 68, 0.22);
+  --shadow-header:
+    0 1px 0 rgba(15, 42, 68, 0.06), 0 4px 20px -12px rgba(15, 42, 68, 0.18);
+}
+
+/* ---------- base ---------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink-700);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    color: var(--color-ink-900);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Visible focus on everything interactive. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand-100);
+    color: var(--color-brand-900);
+  }
+}
+
+/* ---------- reusable component classes ----------
+   Only patterns repeated across many components live here.
+   Anything used once is a Tailwind utility at the call site. */
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg
+           font-semibold whitespace-nowrap transition-all duration-200
+           disabled:cursor-not-allowed disabled:opacity-60;
+    font-family: var(--font-display);
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 text-white shadow-sm
+           hover:bg-brand-700 hover:shadow-md active:translate-y-px;
+  }
+
+  .btn-secondary {
+    @apply border border-line-strong bg-white text-ink-800
+           hover:border-brand-400 hover:text-brand-700 active:translate-y-px;
+  }
+
+  .btn-ghost {
+    @apply border border-white/30 bg-white/10 text-white
+           hover:border-white/60 hover:bg-white/20 active:translate-y-px;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+  .btn-md {
+    @apply px-5 py-2.5 text-[15px];
+  }
+  .btn-lg {
+    @apply px-7 py-3.5 text-base;
+  }
+
+  /* Small uppercase label above a heading. */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-brand-600;
+  }
+
+  /* Editorial body copy - used by long-form article content. */
+  .prose-simpana {
+    @apply text-[17px] leading-[1.75] text-ink-600;
+  }
+  .prose-simpana p {
+    @apply mb-5;
+  }
+  .prose-simpana h2 {
+    @apply mt-12 mb-4 text-2xl;
+  }
+  .prose-simpana h3 {
+    @apply mt-9 mb-3 text-xl;
+  }
+  .prose-simpana ul {
+    @apply mb-6 space-y-2.5;
+  }
+  .prose-simpana li {
+    @apply relative pl-6;
+  }
+  .prose-simpana li::before {
+    content: "";
+    @apply absolute top-[0.68em] left-0 h-1.5 w-1.5 rounded-full bg-leaf-500;
+  }
+  .prose-simpana strong {
+    @apply font-semibold text-ink-800;
+  }
+  .prose-simpana a {
+    @apply text-brand-600 underline underline-offset-2 hover:text-brand-800;
+  }
+  .prose-simpana blockquote {
+    @apply my-8 border-l-[3px] border-brand-300 pl-5 text-xl
+           font-medium text-ink-800 italic;
+  }
+}
+
+/* ---------- hero backdrop ----------
+   Used by HeroBackdrop on the navy bands. Orb sizes are viewport-relative:
+   fixed rem sizes that look like accents on a 1440px hero cover an entire
+   390px one and wash the navy out to flat blue-grey. The --sm variant shrinks
+   them again for the short interior page headers. */
+
+.hero-backdrop {
+  --orb-blue: clamp(14rem, 42vw, 34rem);
+  --orb-sky: clamp(12rem, 34vw, 28rem);
+  --orb-leaf: clamp(10rem, 28vw, 24rem);
+  --orb-alpha: 1;
+  --orb-blur: clamp(38px, 6vw, 72px);
+}
+
+.hero-backdrop--sm {
+  --orb-blue: clamp(11rem, 26vw, 24rem);
+  --orb-sky: clamp(9rem, 20vw, 19rem);
+  --orb-leaf: clamp(8rem, 17vw, 16rem);
+  --orb-alpha: 0.7;
+  --orb-blur: clamp(32px, 5vw, 60px);
+}
+
+/* The signature graphic sitting behind the hero copy. Masked so it fades out
+   toward the bottom of the band, where the text density is highest. */
+.hero-field-wrap {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 80% at 62% 42%,
+    #000 25%,
+    transparent 82%
+  );
+  mask-image: radial-gradient(
+    ellipse 85% 80% at 62% 42%,
+    #000 25%,
+    transparent 82%
+  );
+}
+
+.hero-field {
+  width: 100%;
+  height: 100%;
+}
+
+/* Per-page colour. Motifs with large filled areas (scan, waveform, pulse) run
+   dimmer than line-based ones so they carry the same visual weight. */
+.hero-field-wrap--aisle {
+  color: rgba(141, 187, 216, 0.46);
+}
+.hero-field-wrap--conveyor {
+  color: rgba(141, 187, 216, 0.58);
+}
+.hero-field-wrap--scan {
+  color: rgba(141, 187, 216, 0.2);
+}
+.hero-field-wrap--flow {
+  color: rgba(141, 187, 216, 0.44);
+}
+.hero-field-wrap--network {
+  color: rgba(141, 187, 216, 0.3);
+}
+.hero-field-wrap--orbit {
+  color: rgba(141, 187, 216, 0.36);
+}
+.hero-field-wrap--radar {
+  color: rgba(141, 187, 216, 0.38);
+}
+.hero-field-wrap--contours {
+  color: rgba(141, 187, 216, 0.3);
+}
+.hero-field-wrap--waveform {
+  color: rgba(141, 187, 216, 0.22);
+}
+.hero-field-wrap--pulse {
+  color: rgba(141, 187, 216, 0.28);
+}
+.hero-field-wrap--beacon {
+  color: rgba(141, 187, 216, 0.4);
+}
+
+/* ---- aisle (Home) ---- */
+.hero-aisle-rays {
+  opacity: 0.6;
+}
+
+.hero-rib {
+  transform-box: view-box;
+  opacity: 0;
+  animation-name: hero-rib-travel;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes hero-rib-travel {
+  0% {
+    transform: scale(0.04);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  65% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* ---- conveyor (Products) ---- */
+.hero-carton {
+  transform-box: view-box;
+  animation-name: hero-carton-run;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes hero-carton-run {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1380px);
+    opacity: 0;
+  }
+}
+
+/* ---- scan (Product detail) ---- */
+.hero-bar {
+  animation: hero-bar-fade 6s ease-in-out infinite;
+}
+
+@keyframes hero-bar-fade {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-scanline {
+  transform-box: view-box;
+  animation: hero-scan-sweep 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes hero-scan-sweep {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1020px);
+    opacity: 0;
+  }
+}
+
+/* ---- flow (Services) ---- */
+.hero-stop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-stop-pulse 9s ease-in-out infinite;
+}
+
+@keyframes hero-stop-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.45);
+  }
+}
+
+.hero-packet {
+  transform-box: view-box;
+  animation: hero-packet-run 9s linear infinite;
+}
+
+@keyframes hero-packet-run {
+  0% {
+    transform: translateX(110px);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1060px);
+    opacity: 0;
+  }
+}
+
+/* ---- network (About) ---- */
+.hero-edge {
+  animation: hero-edge-pulse 9s ease-in-out infinite;
+}
+
+@keyframes hero-edge-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.hero-node {
+  fill: rgba(180, 210, 234, 0.7);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-node-pulse 7s ease-in-out infinite;
+}
+
+.hero-node--accent {
+  fill: #8fbc5a;
+  filter: drop-shadow(0 0 6px rgba(143, 188, 90, 0.7));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-node-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes hero-node-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+/* ---- orbit (Careers) ---- */
+.hero-orbit {
+  transform-box: view-box;
+  animation-name: hero-orbit-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hero-orbit--rev {
+  animation-direction: reverse;
+}
+
+@keyframes hero-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- radar (Case studies) ---- */
+.hero-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: hero-ping-out 8.8s linear infinite;
+}
+
+@keyframes hero-ping-out {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(4.4);
+    opacity: 0;
+  }
+}
+
+.hero-sweeper {
+  transform-box: view-box;
+  animation: hero-orbit-spin 11s linear infinite;
+  opacity: 0.6;
+}
+
+/* ---- contours (Case study detail) ---- */
+.hero-contour {
+  transform-box: view-box;
+  animation-name: hero-contour-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes hero-contour-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(-26px, 16px, 0);
+    opacity: 0.95;
+  }
+}
+
+/* ---- waveform (Blog) ---- */
+.hero-wave {
+  transform-box: view-box;
+  animation: hero-wave-rise 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-wave-rise {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* ---- pulse (Blog post) ---- */
+.hero-dot {
+  animation: hero-dot-blink 4.4s ease-in-out infinite;
+}
+
+@keyframes hero-dot-blink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- beacon (Contact) ---- */
+.hero-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: hero-ring-out 8s linear infinite;
+}
+
+@keyframes hero-ring-out {
+  0% {
+    transform: scale(0.12);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(4.8);
+    opacity: 0;
+  }
+}
+
+.hero-scrim {
+  /* The hero copy box reaches roughly 73% of the viewport at desktop widths,
+     so the veil has to hold navy that far before the motif is allowed through.
+     Anything shorter and bright motif details land inside the text box. */
+  background: linear-gradient(
+    100deg,
+    var(--color-brand-900) 0%,
+    color-mix(in srgb, var(--color-brand-900) 92%, transparent) 42%,
+    color-mix(in srgb, var(--color-brand-900) 62%, transparent) 68%,
+    transparent 86%
+  );
+}
+
+/* Below the lg breakpoint the copy spans the full width, so the graphic can no
+   longer live "to the right of the text" — it sits underneath it. Dim the field
+   and thicken the scrim so nothing decorative competes with the headline. */
+@media (max-width: 1023px) {
+  .hero-field-wrap {
+    opacity: 0.42;
+  }
+
+  .hero-scrim {
+    background: linear-gradient(
+      160deg,
+      var(--color-brand-900) 0%,
+      color-mix(in srgb, var(--color-brand-900) 82%, transparent) 55%,
+      color-mix(in srgb, var(--color-brand-900) 62%, transparent) 100%
+    );
+  }
+}
+
+/* slow diagonal light sweep */
+.hero-sweep {
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgba(180, 210, 234, 0.08) 50%,
+    transparent 68%
+  );
+  background-size: 260% 100%;
+  animation: hero-sweep 16s linear infinite;
+}
+
+@keyframes hero-sweep {
+  from {
+    background-position: 160% 0;
+  }
+  to {
+    background-position: -160% 0;
+  }
+}
+
+/* ---------- motion ----------
+   One entrance animation, applied by the Reveal component.
+   Content is visible by default; the class only animates it in. */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.55s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
