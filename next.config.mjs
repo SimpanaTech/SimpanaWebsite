@@ -10,7 +10,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  // output: "export",
   reactCompiler: true,
 
   // Emit `about/index.html` rather than `about.html`, so static hosts that do
