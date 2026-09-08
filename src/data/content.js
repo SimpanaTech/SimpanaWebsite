@@ -52,6 +52,16 @@ export const PRODUCTS = [
       "Manufacturing",
       "Fulfilment",
     ],
+    image: "/images/products/warehouse-management.webp",
+    ogImage: "/images/products/warehouse-management.jpg",
+    imageAlt:
+      "An autonomous mobile robot carrying a carton down a racked warehouse aisle.",
+    keyPoints: [
+      { title: "Bin-level control", body: "Stock is tracked to the storage bin, so a pick list names a location instead of an aisle." },
+      { title: "Role-based screens", body: "Receiving, put-away, picking and dispatch each get their own screen - which is what cuts training time." },
+      { title: "Barcode-driven moves", body: "Scanners drive receipts, transfers and cycle counts, so the physical move and the record happen together." },
+      { title: "Complex layouts, modelled", body: "Multi-zone and mixed-storage warehouses are described as they actually are, hazardous goods included." },
+    ],
   },
   {
     slug: "inventory-management",
@@ -83,6 +93,16 @@ export const PRODUCTS = [
     brochure:
       "https://simpanatech.com/wp-content/uploads/2024/11/IMS-UNIVERSITY_Final_V1.pdf",
     builtFor: ["Distribution", "Education", "Manufacturing"],
+    image: "/images/products/inventory-management.webp",
+    ogImage: "/images/products/inventory-management.jpg",
+    imageAlt:
+      "A warehouse worker checking an inventory dashboard on a tablet in a racking aisle.",
+    keyPoints: [
+      { title: "One product catalogue", body: "A single database of SKUs, descriptions and pricing, shared across every site and every user." },
+      { title: "Batch & serial traceability", body: "Follow a batch or serial number from receipt through consumption to the customer it shipped to." },
+      { title: "Low-stock alerts", body: "Reorder thresholds per line, with notifications that reach people who never log in." },
+      { title: "Order tracking", body: "Monitor each order from placement to delivery on a dashboard that works without a login." },
+    ],
   },
   {
     slug: "point-of-sale",
@@ -113,6 +133,16 @@ export const PRODUCTS = [
     brochure:
       "https://simpanatech.com/wp-content/uploads/2024/11/Point-of-Sale-POS_Final.pdf",
     builtFor: ["Retail", "Distribution", "Fulfilment"],
+    image: "/images/products/point-of-sale.webp",
+    ogImage: "/images/products/point-of-sale.jpg",
+    imageAlt:
+      "Two colleagues reviewing stock against warehouse racking, one holding a tablet.",
+    keyPoints: [
+      { title: "Every payment type", body: "Cash, card and mobile at one till, with returns and invoicing handled on the same screen." },
+      { title: "Stock stays in sync", body: "Each sale moves inventory immediately, with turnover visibility and low-stock alerts for reordering." },
+      { title: "Customers and loyalty", body: "Profiles, purchase history and loyalty programmes attached to the transaction, not to a separate system." },
+      { title: "Reporting across the board", body: "Sales, inventory, employee productivity and financial performance in one reporting layer." },
+    ],
   },
   {
     slug: "chemical-warehouse",
@@ -148,6 +178,16 @@ export const PRODUCTS = [
     brochure:
       "https://simpanatech.com/wp-content/uploads/2024/11/Inventory-CWH_Final_V1.pdf",
     builtFor: ["Manufacturing", "Distribution"],
+    image: "/images/products/chemical-warehouse.webp",
+    ogImage: "/images/products/chemical-warehouse.jpg",
+    imageAlt:
+      "Two workers in protective suits and respirators moving a container of hazardous material past storage tanks.",
+    keyPoints: [
+      { title: "Hazardous material handling", body: "Safe-handling rules live in the system rather than on a laminated sheet on the wall." },
+      { title: "Built for the audit", body: "Activity logging, approval workflows and periodical reports - what an auditor reads first." },
+      { title: "Automated reordering", body: "Stock alerts and reorder rules per chemical, so replenishment does not wait on someone noticing." },
+      { title: "Role-based access", body: "Warehouse staff and managers get different tools for logging, reporting and approval." },
+    ],
   },
   {
     slug: "tools-management",
@@ -182,6 +222,16 @@ export const PRODUCTS = [
     brochure:
       "https://simpanatech.com/wp-content/uploads/2024/11/TMS_Final.pdf",
     builtFor: ["Manufacturing", "Maintenance teams"],
+    image: "/images/products/tools-management.webp",
+    ogImage: "/images/products/tools-management.jpg",
+    imageAlt:
+      "A wooden toolbox filled with hand tools on a workbench.",
+    keyPoints: [
+      { title: "One tool catalogue", body: "Every tool, special-purpose device, portable instrument and consumable in a single plant-wide database." },
+      { title: "Inspection & calibration", body: "Calibration schedules and inspection records sit on the tool record, so a due date is never a spreadsheet." },
+      { title: "Borrow and return", body: "Issue and retrieval tracked per person, so an unreturned tool has a name against it." },
+      { title: "Requisition & approval", body: "New-item requests route through superior approval, with an audit trail on key transactions." },
+    ],
   },
   {
     slug: "school-management",
@@ -217,6 +267,16 @@ export const PRODUCTS = [
     brochure:
       "https://simpanatech.com/wp-content/uploads/2024/11/School-Management-System-SMS_Final.pdf",
     builtFor: ["Education", "Training centres"],
+    image: "/images/products/school-management.webp",
+    ogImage: "/images/products/school-management.jpg",
+    imageAlt:
+      "A team gathered around a desk covered in plans and charts, working through a schedule together.",
+    keyPoints: [
+      { title: "One record per student", body: "Enrollment, teacher assignment and progress held together instead of split across offices." },
+      { title: "Timetables & scheduling", body: "Timetable management and event planning in the same place as the people they affect." },
+      { title: "Notifications that land", body: "Students and teachers hear about changes without having to go and check a portal." },
+      { title: "Roles that fit a school", body: "Administrators, teachers and students each see what belongs to them, and nothing else." },
+    ],
   },
   {
     slug: "event-management",
@@ -250,6 +310,16 @@ export const PRODUCTS = [
     chips: ["bookings", "calendar", "invoicing", "expenses"],
     brochure: "https://simpanatech.com/wp-content/uploads/2024/11/EMS_New.pdf",
     builtFor: ["Events", "Hospitality"],
+    image: "/images/products/event-management.webp",
+    ogImage: "/images/products/event-management.jpg",
+    imageAlt:
+      "A group of colleagues gathered around a laptop, planning together.",
+    keyPoints: [
+      { title: "Visual booking calendar", body: "Every booking on one calendar, so a clash surfaces before it is confirmed." },
+      { title: "Expenses by category", body: "Detailed expense logging against customisable expense types, event by event." },
+      { title: "Invoicing from the booking", body: "Invoices generate off the booking record, so the quote and the bill cannot drift apart." },
+      { title: "Customer & employee records", body: "Customer history and staff details attached to the events they belong to." },
+    ],
   },
 ];
 

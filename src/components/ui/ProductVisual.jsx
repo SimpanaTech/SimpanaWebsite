@@ -71,7 +71,7 @@ function Mobile() {
         <span className="absolute right-1.5 top-1.5 h-3 w-3 border-t-2 border-r-2 border-leaf-400" />
         <span className="absolute bottom-1.5 left-1.5 h-3 w-3 border-b-2 border-l-2 border-leaf-400" />
         <span className="absolute right-1.5 bottom-1.5 h-3 w-3 border-r-2 border-b-2 border-leaf-400" />
-        <span className="hero-scanline absolute inset-x-2 top-1/2 h-px bg-leaf-400" />
+        <span className="scan-sweep absolute inset-x-2 top-0 h-px bg-leaf-400" />
       </div>
       <span className="mb-1 block h-1.5 w-full rounded-full bg-ink-100" />
       <span className="block h-1.5 w-2/3 rounded-full bg-ink-100" />
@@ -107,19 +107,8 @@ const ICON_SCENES = {
   calendar: ["kanban", "dashboard", "table"],
 };
 
-const SCENE_LABELS = {
-  dashboard: "Live dashboard",
-  table: "Daily operations",
-  mobile: "Mobile & scanning",
-  kanban: "Workflow board",
-};
-
 export function getProductScenes(product) {
   return ICON_SCENES[product.icon] ?? ["dashboard", "table", "mobile"];
-}
-
-export function getSceneLabel(variant) {
-  return SCENE_LABELS[variant] ?? "Overview";
 }
 
 export default function ProductVisual({

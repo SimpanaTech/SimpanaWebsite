@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CTABand from "@/components/sections/CTABand";
+import ProductShowcase from "@/components/sections/ProductShowcase";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -8,10 +9,6 @@ import CheckList from "@/components/ui/CheckList";
 import HeroProductCard from "@/components/ui/HeroProductCard";
 import Icon from "@/components/ui/Icon";
 import PageHero from "@/components/ui/PageHero";
-import ProductVisual, {
-  getProductScenes,
-  getSceneLabel,
-} from "@/components/ui/ProductVisual";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { PRODUCTS, getProduct } from "@/data/content";
@@ -33,6 +30,16 @@ export async function generateMetadata({ params }) {
       title: `${product.name} (${product.code}) — Simpana Technologies`,
       description: product.short,
       url: `/products/${product.slug}`,
+      // JPEG rather than the page's WebP: several social scrapers still skip
+      // WebP cards. 1600x900 is inside every platform's size limit.
+      images: [
+        {
+          url: product.ogImage,
+          width: 1600,
+          height: 900,
+          alt: product.imageAlt,
+        },
+      ],
     },
   };
 }
@@ -127,25 +134,7 @@ export default async function ProductDetailPage({ params }) {
         </div>
       </Section>
 
-      <Section space="sm" bordered>
-        <SectionHeading
-          eyebrow="Product tour"
-          title={`See ${product.abbr} in your operation.`}
-          intro="Representative screens - a look at the shape of the product, not the finished skin. Every deployment is themed to the client."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {getProductScenes(product).map((scene) => (
-            <Card key={scene} className="overflow-hidden p-0">
-              <ProductVisual product={product} variant={scene} className="h-56" />
-              <div className="border-t border-line px-5 py-4">
-                <p className="text-sm font-semibold text-ink-800">
-                  {getSceneLabel(scene)}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
+      <ProductShowcase product={product} />
 
       <Section tone="tint" space="lg" bordered>
         <SectionHeading

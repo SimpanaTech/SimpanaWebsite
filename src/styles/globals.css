@@ -370,6 +370,30 @@
   animation: hero-scan-sweep 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
+/* The HTML twin of the above, for the phone mockup in ProductVisual. The SVG
+   keyframes translate in viewBox units (1020 of them), which throws the line
+   clean out of a 112px-wide frame; this one travels its own box instead. */
+.scan-sweep {
+  animation: scan-sweep-down 3.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes scan-sweep-down {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(5rem);
+    opacity: 0;
+  }
+}
+
 @keyframes hero-scan-sweep {
   0% {
     transform: translateX(0);
