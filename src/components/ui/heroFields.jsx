@@ -7,7 +7,21 @@
  *
  * Strokes and fills use `currentColor`; the colour (and therefore how loud the
  * motif is) is set per variant in globals.css.
+ *
+ * The seven product-page motifs and the products-index composite live in
+ * `./hero-motifs/` as standalone files (one per product, keyed by the same
+ * icon name used in data/content.js) rather than inline below, since each
+ * is domain-specific rather than page-specific.
  */
+
+import BoxMotif from "./hero-motifs/box";
+import CalendarMotif from "./hero-motifs/calendar";
+import CartMotif from "./hero-motifs/cart";
+import FlaskMotif from "./hero-motifs/flask";
+import FleetMotif from "./hero-motifs/fleet";
+import SchoolMotif from "./hero-motifs/school";
+import ToolMotif from "./hero-motifs/tool";
+import WarehouseMotif from "./hero-motifs/warehouse";
 
 export const FIELD_W = 1200;
 export const FIELD_H = 620;
@@ -554,4 +568,14 @@ export const HERO_FIELDS = {
   waveform: Waveform,
   pulse: Pulse,
   beacon: Beacon,
+
+  // Product pages — one motif per product, keyed by data/content.js `icon`.
+  warehouse: WarehouseMotif,
+  box: BoxMotif,
+  cart: CartMotif,
+  flask: FlaskMotif,
+  tool: ToolMotif,
+  school: SchoolMotif,
+  calendar: CalendarMotif,
+  fleet: FleetMotif,
 };

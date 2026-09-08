@@ -3,6 +3,7 @@ import ProductsGrid from "@/components/sections/ProductsGrid";
 import TrustStrip from "@/components/sections/TrustStrip";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
+import HeroProductStack from "@/components/ui/HeroProductStack";
 import Icon from "@/components/ui/Icon";
 import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
@@ -38,7 +39,8 @@ export default function ProductsPage() {
   return (
     <>
       <PageHero
-        backdrop="conveyor"
+        backdrop="fleet"
+        visual={<HeroProductStack />}
         crumbs={[{ label: "Products" }]}
         title="Seven systems, built for how operations actually run."
         intro="Each product ships with role-based access, activity logging, approval workflows, and reporting. Run one, or connect several across the same operation."

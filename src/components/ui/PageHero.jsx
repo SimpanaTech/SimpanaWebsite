@@ -12,6 +12,7 @@ export default function PageHero({
   title,
   intro,
   backdrop = "network",
+  visual,
   children,
 }) {
   return (
@@ -19,16 +20,28 @@ export default function PageHero({
       <HeroBackdrop size="sm" variant={backdrop} />
 
       <Container className="relative py-14 sm:py-20">
-        <Breadcrumb items={crumbs} onDark />
-        <h1 className="max-w-4xl text-4xl text-white sm:text-5xl lg:text-[52px]">
-          {title}
-        </h1>
-        {intro ? (
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-brand-200">
-            {intro}
-          </p>
-        ) : null}
-        {children ? <div className="mt-8">{children}</div> : null}
+        <div
+          className={`flex flex-col gap-10 ${
+            visual ? "lg:flex-row lg:items-center lg:justify-between" : ""
+          }`}
+        >
+          <div>
+            <Breadcrumb items={crumbs} onDark />
+            <h1 className="max-w-4xl text-4xl text-white sm:text-5xl lg:text-[52px]">
+              {title}
+            </h1>
+            {intro ? (
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-brand-200">
+                {intro}
+              </p>
+            ) : null}
+            {children ? <div className="mt-8">{children}</div> : null}
+          </div>
+
+          {visual ? (
+            <div className="hidden shrink-0 lg:block">{visual}</div>
+          ) : null}
+        </div>
       </Container>
     </header>
   );

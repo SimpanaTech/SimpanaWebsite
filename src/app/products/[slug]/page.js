@@ -5,8 +5,13 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import CheckList from "@/components/ui/CheckList";
+import HeroProductCard from "@/components/ui/HeroProductCard";
 import Icon from "@/components/ui/Icon";
 import PageHero from "@/components/ui/PageHero";
+import ProductVisual, {
+  getProductScenes,
+  getSceneLabel,
+} from "@/components/ui/ProductVisual";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { PRODUCTS, getProduct } from "@/data/content";
@@ -44,7 +49,8 @@ export default async function ProductDetailPage({ params }) {
   return (
     <>
       <PageHero
-        backdrop="scan"
+        backdrop={product.icon}
+        visual={<HeroProductCard product={product} />}
         crumbs={[
           { label: "Products", href: "/products" },
           { label: product.name },
@@ -118,6 +124,26 @@ export default async function ProductDetailPage({ params }) {
               </div>
             </Card>
           </div>
+        </div>
+      </Section>
+
+      <Section space="sm" bordered>
+        <SectionHeading
+          eyebrow="Product tour"
+          title={`See ${product.abbr} in your operation.`}
+          intro="Representative screens - a look at the shape of the product, not the finished skin. Every deployment is themed to the client."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {getProductScenes(product).map((scene) => (
+            <Card key={scene} className="overflow-hidden p-0">
+              <ProductVisual product={product} variant={scene} className="h-56" />
+              <div className="border-t border-line px-5 py-4">
+                <p className="text-sm font-semibold text-ink-800">
+                  {getSceneLabel(scene)}
+                </p>
+              </div>
+            </Card>
+          ))}
         </div>
       </Section>
 

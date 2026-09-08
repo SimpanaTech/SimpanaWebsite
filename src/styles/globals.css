@@ -270,6 +270,30 @@
 .hero-field-wrap--beacon {
   color: rgba(141, 187, 216, 0.4);
 }
+.hero-field-wrap--warehouse {
+  color: rgba(141, 187, 216, 0.46);
+}
+.hero-field-wrap--box {
+  color: rgba(141, 187, 216, 0.34);
+}
+.hero-field-wrap--cart {
+  color: rgba(141, 187, 216, 0.42);
+}
+.hero-field-wrap--flask {
+  color: rgba(141, 187, 216, 0.38);
+}
+.hero-field-wrap--tool {
+  color: rgba(141, 187, 216, 0.34);
+}
+.hero-field-wrap--school {
+  color: rgba(141, 187, 216, 0.3);
+}
+.hero-field-wrap--calendar {
+  color: rgba(141, 187, 216, 0.32);
+}
+.hero-field-wrap--fleet {
+  color: rgba(141, 187, 216, 0.38);
+}
 
 /* ---- aisle (Home) ---- */
 .hero-aisle-rays {
@@ -616,6 +640,21 @@
   }
   to {
     background-position: -160% 0;
+  }
+}
+
+/* ---- hero foreground visual (product image card) ---- */
+.hero-visual-float {
+  animation: hero-visual-float 6s ease-in-out infinite;
+}
+
+@keyframes hero-visual-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
 
