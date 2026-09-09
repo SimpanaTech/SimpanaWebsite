@@ -40,7 +40,7 @@ export default function CTABand({
                   v: CONTACT.email,
                   href: `mailto:${CONTACT.email}`,
                 },
-                { k: "Phone", v: CONTACT.phone, href: CONTACT.phoneHref },
+                // { k: "Phone", v: CONTACT.phone, href: CONTACT.phoneHref },
                 { k: "Office", v: CONTACT.office },
                 { k: "Hours", v: CONTACT.hours },
               ].map((row) => (
