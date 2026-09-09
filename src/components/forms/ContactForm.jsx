@@ -7,7 +7,7 @@ import FormNotice from "@/components/forms/FormNotice";
 import Button from "@/components/ui/Button";
 import { ENQUIRY_TOPICS } from "@/data/content";
 import { CONTACT } from "@/data/site";
-import { submitForm } from "@/lib/submitForm";
+import { buildEnquiryEmail, openGmailCompose } from "@/lib/composeEmail";
 import { enquirySchema } from "@/lib/validation";
 import { useContactStore } from "@/store/contactStore";
 
@@ -30,8 +30,15 @@ export default function ContactForm() {
   const formik = useFormik({
     initialValues: INITIAL,
     validationSchema: enquirySchema,
-    onSubmit: async (values, helpers) => {
-      setStatus("submitting");
+    // Deliberately synchronous: opening the Gmail tab has to happen inside the
+    // user gesture that submitted the form, and a single `await` before it is
+    // enough for the browser to treat the popup as unsolicited and block it.
+    onSubmit: (values, helpers) => {
+      // Formik bails out of its own submit bookkeeping when the handler is
+      // synchronous ("consumer is responsible for cleaning up via
+      // setSubmitting(false)"), so clear it here or the button stays disabled
+      // after the first press.
+      helpers.setSubmitting(false);
 
       const { website, ...clean } = values;
       // Bots fill the honeypot. Report success, deliver nothing.
@@ -41,15 +48,12 @@ export default function ContactForm() {
         return;
       }
 
-      const result = await submitForm({ kind: "enquiry", ...clean });
+      const result = openGmailCompose(buildEnquiryEmail(clean));
 
-      if (result.ok) {
-        markSubmitted();
-        helpers.resetForm({ values: INITIAL });
-        return;
-      }
-
-      setStatus("error", result.reason);
+      // The values stay put on success. Gmail has its own copy now, but the
+      // send happens over there and we never learn whether it went - clearing
+      // the form would throw the enquiry away if that tab is closed.
+      setStatus(result.blocked ? "blocked" : "success", result.url);
     },
   });
 
@@ -70,14 +74,39 @@ export default function ContactForm() {
     if (name !== "website") setDraft({ [name]: value });
   };
 
-  const busy = status === "submitting" || formik.isSubmitting;
+  const busy = formik.isSubmitting;
 
   return (
     <form onSubmit={formik.handleSubmit} noValidate className="space-y-5">
       {status === "success" ? (
         <FormNotice tone="success">
-          Thanks — that&apos;s with us. We read every enquiry and usually come
-          back within one working day.
+          Gmail is open in a new tab with your enquiry ready to go —{" "}
+          <strong className="font-semibold">press Send there to finish</strong>.
+          Nothing has reached us until you do.{" "}
+          <a
+            href={feedback}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-2"
+          >
+            Reopen that tab
+          </a>{" "}
+          if it did not appear.
+        </FormNotice>
+      ) : null}
+
+      {status === "blocked" ? (
+        <FormNotice>
+          Your browser blocked the Gmail tab.{" "}
+          <a
+            href={feedback}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-2"
+          >
+            Open it manually
+          </a>{" "}
+          — your enquiry is already filled in — or email {CONTACT.email}.
         </FormNotice>
       ) : null}
 
@@ -211,10 +240,10 @@ export default function ContactForm() {
 
       <div className="flex flex-wrap items-center gap-4 pt-1">
         <Button type="submit" size="lg" disabled={busy}>
-          {busy ? "Sending…" : "Send enquiry"}
+          {busy ? "Opening Gmail…" : "Compose in Gmail"}
         </Button>
         <p className="text-sm text-ink-500">
-          We reply from {CONTACT.email}. No newsletter, no list.
+          Opens Gmail with this enquiry filled in, addressed to {CONTACT.email}.
         </p>
       </div>
     </form>

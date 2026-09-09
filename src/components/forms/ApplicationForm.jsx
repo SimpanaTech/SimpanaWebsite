@@ -8,7 +8,7 @@ import FormNotice from "@/components/forms/FormNotice";
 import Button from "@/components/ui/Button";
 import { ROLES } from "@/data/content";
 import { CONTACT } from "@/data/site";
-import { submitForm } from "@/lib/submitForm";
+import { buildApplicationEmail, openGmailCompose } from "@/lib/composeEmail";
 import { RESUME_ACCEPT, applicationSchema } from "@/lib/validation";
 
 const INITIAL = {
@@ -22,45 +22,77 @@ const INITIAL = {
 };
 
 export default function ApplicationForm({ defaultRole = "" }) {
-  const [state, setState] = useState({ status: "idle", reason: null });
+  const [state, setState] = useState({ status: "idle", url: null, cv: null });
 
   const formik = useFormik({
     initialValues: { ...INITIAL, role: defaultRole },
     validationSchema: applicationSchema,
-    onSubmit: async (values, helpers) => {
-      setState({ status: "submitting", reason: null });
+    // Synchronous on purpose - see the note in ContactForm. Awaiting anything
+    // before the window.open costs us the user gesture and the tab is blocked.
+    onSubmit: (values, helpers) => {
+      // See the note in ContactForm: Formik does not reset `isSubmitting` for
+      // a synchronous handler, so the button would never re-enable.
+      helpers.setSubmitting(false);
 
       const { website, ...clean } = values;
       if (website) {
-        setState({ status: "success", reason: null });
+        setState({ status: "success", url: null, cv: null });
         helpers.resetForm({ values: { ...INITIAL, role: defaultRole } });
         return;
       }
 
-      const result = await submitForm({ kind: "application", ...clean });
+      const message = buildApplicationEmail(clean);
+      const result = openGmailCompose(message);
 
-      if (result.ok) {
-        setState({ status: "success", reason: null });
-        helpers.resetForm({ values: { ...INITIAL, role: defaultRole } });
-        return;
-      }
-
-      setState({ status: "error", reason: result.reason });
+      // Values are kept: the CV still has to be attached by hand in the Gmail
+      // tab, and clearing the form would leave nothing to refer back to.
+      setState({
+        status: result.blocked ? "blocked" : "success",
+        url: result.url,
+        cv: message.attachmentName,
+      });
     },
   });
 
-  const busy = state.status === "submitting" || formik.isSubmitting;
+  const busy = formik.isSubmitting;
 
   return (
     <form onSubmit={formik.handleSubmit} noValidate className="space-y-5">
       {state.status === "success" ? (
         <FormNotice tone="success">
-          Got it — CV received. We read every application, and if there is a fit
-          we will be in touch.
+          Gmail is open in a new tab with your application filled in.{" "}
+          <strong className="font-semibold">
+            Attach {state.cv ?? "your CV"} and press Send
+          </strong>{" "}
+          — a web page cannot attach a file to an email for you, so that last
+          step is yours.{" "}
+          <a
+            href={state.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-2"
+          >
+            Reopen that tab
+          </a>{" "}
+          if it did not appear.
         </FormNotice>
       ) : null}
 
-      {state.status === "error" ? <FormNotice reason={state.reason} /> : null}
+      {state.status === "blocked" ? (
+        <FormNotice>
+          Your browser blocked the Gmail tab.{" "}
+          <a
+            href={state.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-2"
+          >
+            Open it manually
+          </a>
+          , attach {state.cv ?? "your CV"}, and send — or email {CONTACT.email}{" "}
+          directly.
+        </FormNotice>
+      ) : null}
 
       <div className="grid gap-5 sm:grid-cols-2">
         <FormField
@@ -181,7 +213,7 @@ export default function ApplicationForm({ defaultRole = "" }) {
         label="Your CV"
         required
         accept={RESUME_ACCEPT}
-        hint="PDF, DOC, or DOCX · up to 5 MB"
+        hint="PDF, DOC, or DOCX · up to 5 MB. Named in the email so you can attach it in Gmail — browsers cannot attach it for you."
         file={formik.values.resume}
         error={formik.errors.resume}
         touched={formik.touched.resume}
@@ -207,9 +239,12 @@ export default function ApplicationForm({ defaultRole = "" }) {
 
       <div className="flex flex-wrap items-center gap-4 pt-1">
         <Button type="submit" size="lg" disabled={busy}>
-          {busy ? "Sending…" : "Send application"}
+          {busy ? "Opening Gmail…" : "Compose in Gmail"}
         </Button>
-        <p className="text-sm text-ink-500">Prefer email? {CONTACT.email}</p>
+        <p className="text-sm text-ink-500">
+          Opens Gmail with your details filled in — attach your CV there, then
+          send. Prefer to do it yourself? {CONTACT.email}
+        </p>
       </div>
     </form>
   );

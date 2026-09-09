@@ -1,4 +1,11 @@
 /**
+ * NOT CURRENTLY WIRED UP. The contact and careers forms deliver through
+ * `composeEmail.js` instead, which opens a pre-filled Gmail compose window.
+ * This module is kept for the day a form endpoint is configured - it is the
+ * only path that can carry the CV as a real attachment. To switch back, set
+ * NEXT_PUBLIC_FORM_ENDPOINT and call `submitForm` from the two form
+ * components again.
+ *
  * Form delivery for a static site.
  *
  * The site builds to plain HTML with no server of its own, so submissions go

@@ -23,7 +23,7 @@ export const useContactStore = create(
   persist(
     (set) => ({
       draft: { ...EMPTY_DRAFT },
-      /** "idle" | "submitting" | "success" | "error" */
+      /** "idle" | "success" | "blocked" | "error" */
       status: "idle",
       feedback: "",
       lastSubmittedAt: null,

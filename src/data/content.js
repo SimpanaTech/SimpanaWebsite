@@ -412,6 +412,76 @@ export const SERVICES = [
   },
 ];
 
+/* ------------------------------------------------------------------ *
+ * HOME PAGE - the positioning and section copy carried over from the
+ * live simpanatech.com home page.
+ * ------------------------------------------------------------------ */
+
+/** The company statement the live home page opens with. */
+export const POSITIONING = {
+  paragraphs: [
+    "Simpana is all about excellence, passion and flexibility. We have offered world class services in IT consulting, offshore software development, testing and user interface design.",
+    "We work on diverse projects ranging from simple information systems and websites to complex enterprise type architectures, desktop or web-enabled applications, traditional n-tier and service-oriented architectures.",
+  ],
+  /** "We follow three main rules to get to our goals." */
+  rules: [
+    {
+      no: "01",
+      title: "On time",
+      body: "Delivery dates that hold, because they were planned against the work rather than against the pitch.",
+    },
+    {
+      no: "02",
+      title: "Within scope",
+      body: "What was agreed is what ships. Anything beyond it gets scoped and priced before it starts, not after.",
+    },
+    {
+      no: "03",
+      title: "The best service",
+      body: "Deep, thoughtful process - planned with precision, delivered with responsibility. No surprises at handover.",
+    },
+  ],
+};
+
+/** "Our services" - the three IT pillars from the live home page. */
+export const IT_PILLARS = [
+  {
+    no: "IT-01",
+    icon: "shield",
+    title: "IT Support",
+    body: "With top-tier staff and personable IT support you benefit from faster performance, zero downtime, and fewer interruptions. We put a preventative and proactive maintenance programme in place that minimises the need to escalate time-sensitive issues, handle the day-to-day computing workload, and respond rapidly to whatever comes up.",
+  },
+  {
+    no: "IT-02",
+    icon: "cloud",
+    title: "IT Solutions",
+    body: "End-to-end services that empower employees, deliver high-performing networks and smart systems, and improve workflow. Strategic deployment means optimal uptime across every mission-critical area and seamless continuity - tapping into next-generation technology without breaking the bank.",
+  },
+  {
+    no: "IT-03",
+    icon: "chart",
+    title: "IT Consulting",
+    body: "We take on business consulting projects where we study existing processes and look for ways to enhance, improve, and optimise them. The consulting we do runs deep and is based on a thoughtful process: planned with precision, delivered with responsibility.",
+  },
+];
+
+/**
+ * "What we can offer you" - the three services the live home page features,
+ * referenced by number so the copy stays in SERVICES and never forks.
+ */
+export const OFFER_SERVICE_NOS = ["S-05", "S-03", "S-06"];
+
+export const getOfferServices = () =>
+  OFFER_SERVICE_NOS.map((no) => SERVICES.find((s) => s.no === no)).filter(
+    Boolean,
+  );
+
+/** The closing statement band. */
+export const LEADING = {
+  title: "IT solutions for a more robust environment.",
+  body: "Faster performance, zero downtime, and fewer interruptions - from a team that maintains the environment rather than waiting for it to break.",
+};
+
 export const EDUCATION_BLOCKS = [
   {
     no: "E-01",
