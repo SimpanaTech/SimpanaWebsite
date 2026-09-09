@@ -7,7 +7,9 @@ import Card from "@/components/ui/Card";
 import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import { POSTS, getPost } from "@/data/content";
+import JsonLd from "@/components/seo/JsonLd";
 import { formatDate, splitHeading } from "@/lib/format";
+import { breadcrumbSchema, postSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return POSTS.map((post) => ({ slug: post.slug }));
@@ -41,11 +43,18 @@ export default async function PostPage({ params }) {
 
   const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
 
+  const crumbs = [
+    { label: "Blog", href: "/blog" },
+    { label: post.title },
+  ];
+
   return (
     <>
+      <JsonLd schema={[postSchema(post), breadcrumbSchema(crumbs)]} />
+
       <PageHero
         backdrop="pulse"
-        crumbs={[{ label: "Blog", href: "/blog" }, { label: post.title }]}
+        crumbs={crumbs}
         title={heading.title}
         accent={heading.accent}
         intro={post.excerpt}

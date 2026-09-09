@@ -6,7 +6,9 @@ import {
 } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { SITE } from "@/data/site";
+import JsonLd from "@/components/seo/JsonLd";
+import { KEYWORDS, SITE } from "@/data/site";
+import { organisationSchema, websiteSchema } from "@/lib/schema";
 import "@/styles/globals.css";
 
 const manrope = Manrope({
@@ -46,38 +48,53 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const OG_IMAGE = {
+  url: SITE.ogImage,
+  width: 1200,
+  height: 630,
+  alt: `${SITE.name} — IT support, consulting, and solutions in Pune`,
+};
+
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — warehouse & supply-chain software`,
+    // Every page that sets no title of its own inherits this, so it has to
+    // describe the company as it now positions itself, not as the catalogue.
+    default: `${SITE.headline} | ${SITE.name}`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
   applicationName: SITE.name,
-  keywords: [
-    "warehouse management system",
-    "inventory management system",
-    "supply chain software",
-    "WMS India",
-    "3PL software",
-    "Pune software company",
-    "SAP consulting",
-  ],
+  keywords: KEYWORDS,
   authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  category: "Information Technology",
   openGraph: {
     type: "website",
     siteName: SITE.name,
     locale: SITE.locale,
     url: SITE.url,
-    title: `${SITE.name} — warehouse & supply-chain software`,
+    title: `${SITE.headline} | ${SITE.name}`,
     description: SITE.description,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — warehouse & supply-chain software`,
+    title: `${SITE.headline} | ${SITE.name}`,
     description: SITE.description,
+    images: [SITE.ogImage],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: { canonical: "/" },
 };
 
@@ -105,6 +122,8 @@ export default function RootLayout({ children }) {
         >
           Skip to content
         </a>
+        <JsonLd schema={[organisationSchema(), websiteSchema()]} />
+
         <Header />
         <main id="main" className="flex-1">
           {children}

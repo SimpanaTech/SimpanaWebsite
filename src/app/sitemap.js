@@ -5,6 +5,9 @@ import { SITE } from "@/data/site";
 // to build time rather than left dynamic.
 export const dynamic = "force-static";
 
+/** trailingSlash is on, so every URL here needs to match the canonical. */
+const withSlash = (path) => (path.endsWith("/") ? path : `${path}/`);
+
 const STATIC_ROUTES = [
   { path: "/", priority: 1, changeFrequency: "monthly" },
   { path: "/products", priority: 0.9, changeFrequency: "monthly" },
@@ -21,25 +24,25 @@ export default function sitemap() {
 
   return [
     ...STATIC_ROUTES.map((route) => ({
-      url: `${SITE.url}${route.path}`,
+      url: `${SITE.url}${withSlash(route.path)}`,
       lastModified: now,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })),
     ...PRODUCTS.map((product) => ({
-      url: `${SITE.url}/products/${product.slug}`,
+      url: `${SITE.url}/products/${product.slug}/`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     })),
     ...CASES.map((study) => ({
-      url: `${SITE.url}/case-studies/${study.slug}`,
+      url: `${SITE.url}/case-studies/${study.slug}/`,
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.6,
     })),
     ...POSTS.map((post) => ({
-      url: `${SITE.url}/blog/${post.slug}`,
+      url: `${SITE.url}/blog/${post.slug}/`,
       lastModified: new Date(post.date),
       changeFrequency: "yearly",
       priority: 0.5,

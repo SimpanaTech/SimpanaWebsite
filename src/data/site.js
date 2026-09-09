@@ -9,11 +9,62 @@ export const SITE = {
   name: "Simpana Technologies",
   shortName: "Simpana",
   tagline: "Simplifying Business",
+  /** Services lead, products prove - the same order the home page argues in. */
   description:
-    "Simpana builds and operates real-time warehouse, inventory, and logistics software for 3PLs, distributors, and manufacturers - one connected system.",
+    "Pune-based IT company delivering managed IT support, business consulting, and custom software - including seven deployed warehouse, inventory, and point-of-sale systems.",
+  headline: "IT Support, Consulting & Solutions in Pune",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://simpanatech.com",
   locale: "en_IN",
+  /** 1200x630, the size every social platform crops to. */
+  ogImage: "/images/og-default.jpg",
   version: "LIVE SYSTEM / WARM / v6",
+};
+
+/**
+ * Search terms the site should actually rank for, in the order the business
+ * cares about: the services first, the products second, the geography woven
+ * through both.
+ */
+export const KEYWORDS = [
+  "IT support Pune",
+  "managed IT services Pune",
+  "IT consulting Pune",
+  "IT company in Pune",
+  "custom software development Pune",
+  "warehouse management system",
+  "inventory management system",
+  "point of sale software",
+  "supply chain software India",
+  "3PL software",
+  "SAP consulting",
+];
+
+/**
+ * Facts about the company used to build the Organization structured data.
+ * Everything here is taken from the live site - nothing is inferred.
+ *
+ * TODO: `sameAs` stays empty until there are social profiles to point at, and
+ * the postal address has no street line or PIN code. Both matter for local
+ * search: a Google Business Profile URL in `sameAs` and a full address are the
+ * two highest-value additions to this file.
+ */
+export const ORGANISATION = {
+  legalName: "Simpana Technologies",
+  locality: "Pune",
+  region: "Maharashtra",
+  country: "IN",
+  /** Mon-Sat, from CONTACT.hours. */
+  opens: "10:00",
+  closes: "19:00",
+  days: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ],
+  sameAs: [],
 };
 
 export const CONTACT = {

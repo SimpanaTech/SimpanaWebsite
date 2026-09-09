@@ -12,7 +12,9 @@ import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { PRODUCTS, getProduct } from "@/data/content";
+import JsonLd from "@/components/seo/JsonLd";
 import { splitHeading } from "@/lib/format";
+import { breadcrumbSchema, productSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return PRODUCTS.map((product) => ({ slug: product.slug }));
@@ -56,15 +58,21 @@ export default async function ProductDetailPage({ params }) {
   const prev = PRODUCTS[(index - 1 + PRODUCTS.length) % PRODUCTS.length];
   const next = PRODUCTS[(index + 1) % PRODUCTS.length];
 
+  const crumbs = [
+    { label: "Products", href: "/products" },
+    { label: product.name },
+  ];
+
   return (
     <>
+      <JsonLd
+        schema={[productSchema(product), breadcrumbSchema(crumbs)]}
+      />
+
       <PageHero
         backdrop={product.icon}
         visual={<HeroProductCard product={product} />}
-        crumbs={[
-          { label: "Products", href: "/products" },
-          { label: product.name },
-        ]}
+        crumbs={crumbs}
         title={heading.title}
         accent={heading.accent}
         intro={product.short}
