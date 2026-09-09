@@ -21,7 +21,8 @@ export default function AboutPage() {
       <PageHero
         backdrop="network"
         crumbs={[{ label: "About" }]}
-        title="A team that treats software like operations."
+        title="A team that treats software"
+        accent="like operations."
         intro="Simpana is built on excellence, focus, and flexibility. We deliver IT consulting, offshore software development, testing, and interface design — mostly for the supply-chain world."
       />
 

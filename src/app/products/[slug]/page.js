@@ -12,6 +12,7 @@ import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { PRODUCTS, getProduct } from "@/data/content";
+import { splitHeading } from "@/lib/format";
 
 export function generateStaticParams() {
   return PRODUCTS.map((product) => ({ slug: product.slug }));
@@ -49,6 +50,8 @@ export default async function ProductDetailPage({ params }) {
   const product = getProduct(slug);
   if (!product) notFound();
 
+  const heading = splitHeading(product.name);
+
   const index = PRODUCTS.findIndex((p) => p.slug === product.slug);
   const prev = PRODUCTS[(index - 1 + PRODUCTS.length) % PRODUCTS.length];
   const next = PRODUCTS[(index + 1) % PRODUCTS.length];
@@ -62,7 +65,8 @@ export default async function ProductDetailPage({ params }) {
           { label: "Products", href: "/products" },
           { label: product.name },
         ]}
-        title={product.name}
+        title={heading.title}
+        accent={heading.accent}
         intro={product.short}
       >
         <div className="flex flex-wrap gap-2">

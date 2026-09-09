@@ -42,7 +42,8 @@ export default function ProductsPage() {
         backdrop="fleet"
         visual={<HeroProductStack />}
         crumbs={[{ label: "Products" }]}
-        title="Seven systems, built for how operations actually run."
+        title="Seven systems,"
+        accent="built for how operations actually run."
         intro="Each product ships with role-based access, activity logging, approval workflows, and reporting. Run one, or connect several across the same operation."
       >
         <div className="flex flex-wrap gap-2">

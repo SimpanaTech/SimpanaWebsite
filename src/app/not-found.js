@@ -12,7 +12,10 @@ export default function NotFound() {
   return (
     <Container className="py-24 text-center sm:py-32">
       <p className="eyebrow">404</p>
-      <h1 className="mt-4 text-4xl sm:text-5xl">
+      {/* Carter One like every other hero, but no gold accent: ember-400 is
+          drawn for the navy band and manages only ~1.9:1 on this light
+          ground. The face carries the consistency; the colour cannot. */}
+      <h1 className="hero-title mt-4 text-[clamp(1.75rem,3.4vw,2.75rem)]">
         That page is not on the floor.
       </h1>
       <p className="mx-auto mt-5 max-w-lg text-[17px] leading-relaxed text-ink-600">

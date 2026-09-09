@@ -8,6 +8,7 @@ import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { CASES, getCase } from "@/data/content";
+import { splitHeading } from "@/lib/format";
 
 export function generateStaticParams() {
   return CASES.map((study) => ({ slug: study.slug }));
@@ -35,6 +36,8 @@ export default async function CaseDetailPage({ params }) {
   const study = getCase(slug);
   if (!study) notFound();
 
+  const heading = splitHeading(study.title);
+
   const index = CASES.findIndex((c) => c.slug === study.slug);
   const next = CASES[(index + 1) % CASES.length];
 
@@ -46,7 +49,8 @@ export default async function CaseDetailPage({ params }) {
           { label: "Case studies", href: "/case-studies" },
           { label: study.title },
         ]}
-        title={study.title}
+        title={heading.title}
+        accent={heading.accent}
         intro={study.short}
       >
         <div className="flex flex-wrap gap-2">

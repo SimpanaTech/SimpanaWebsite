@@ -1,114 +1,109 @@
+import Image from "next/image";
 import Button from "@/components/ui/Button";
-import CheckList from "@/components/ui/CheckList";
 import Container from "@/components/ui/Container";
 import HeroBackdrop from "@/components/ui/HeroBackdrop";
-import Icon from "@/components/ui/Icon";
-import { OPS_STAGES } from "@/data/site";
+import { HERO, PRIMARY_CTA, SECONDARY_CTA } from "@/data/content";
 
 /**
- * Home page hero. Navy band, headline left, a quiet "operation flow" diagram
- * right so the supply-chain focus reads before anyone scrolls.
+ * Home page hero. Services-led: the headline maps one clause to each of the
+ * three pillars, with the third - the part competitors cannot claim - set in
+ * brand blue.
+ *
+ * Copy left, photograph right, figures along the bottom of the copy column.
+ * The figures are unverified claims; see the warning on HERO.stats.
  */
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-brand-900">
       <HeroBackdrop variant="aisle" />
 
-      <Container className="relative py-16 sm:py-24 lg:py-28">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      <Container className="relative py-16 sm:py-20 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div className="animate-rise">
-            <p className="eyebrow text-brand-300">
-              Supply-chain software · Pune, India
-            </p>
+            <p className="eyebrow text-brand-300">{HERO.eyebrow}</p>
 
-            <h1 className="mt-4 text-4xl text-white sm:text-5xl lg:text-[56px]">
-              Warehouse software that keeps up with your floor.
+            {/* One heading, three lines - the break is typographic, so the
+                spans stay inside a single h1.
+
+                Face, weight, tracking and leading come from `.hero-title`,
+                shared with every interior page header.
+
+                Size is fluid and capped lower than Manrope was: Carter One
+                sets roughly 20% wider per character, so at a fixed 48px the
+                longest clause overruns this ~590px column and the three-line
+                structure collapses. It carries the same visual weight at 40px
+                that Manrope had at 48px. */}
+            <h1
+              className="hero-title mt-5 text-[clamp(1.625rem,3.2vw,3.5rem)] text-white"
+            >
+              {HERO.title.lines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+              <span className="hero-title-accent">{HERO.title.accent}</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-brand-200">
-              Simpana builds and operates real-time warehouse, inventory, and
-              logistics systems for 3PLs, distributors, and manufacturers — one
-              connected operation instead of five disconnected tools.
+            <p className="mt-7 max-w-xl text-lg leading-relaxed text-brand-200">
+              {HERO.intro}
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button href="/contact" size="lg">
-                Book a consultation
+              <Button href={PRIMARY_CTA.href} size="lg">
+                {PRIMARY_CTA.label}
               </Button>
-              <Button href="/products" variant="ghost" size="lg">
-                Explore the products
+              <Button href={SECONDARY_CTA.href} variant="ghost" size="lg">
+                {SECONDARY_CTA.label}
               </Button>
             </div>
 
-            <div className="mt-10 border-t border-white/10 pt-8">
-              <CheckList
-                onDark
-                className="sm:grid sm:grid-cols-2 sm:gap-x-8 sm:space-y-0 sm:[&>li]:mb-3"
-                items={[
-                  "Role-based screens that cut training time",
-                  "Audit trails and approval workflows built in",
-                  "Barcode and batch traceability end to end",
-                  "Deployed and supported, not just delivered",
-                ]}
-              />
-            </div>
+            <dl className="mt-11 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
+              {HERO.stats.map((stat) => (
+                // Reversed so the figure reads first but the markup stays a
+                // real term/description pair rather than a duplicated label.
+                <div key={stat.label} className="flex flex-col-reverse gap-1.5">
+                  <dt className="text-sm leading-snug text-brand-300">
+                    {stat.label}
+                  </dt>
+                  <dd className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          {/* Operation flow — the six stages one order passes through. */}
-          <div className="animate-rise [animation-delay:120ms]">
-            <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm sm:p-8">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold tracking-[0.14em] text-brand-300 uppercase">
-                  Operation flow
-                </p>
-                <span className="inline-flex items-center gap-2 text-xs font-medium text-leaf-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-leaf-400" />
-                  Connected
-                </span>
-              </div>
+          <div className="animate-rise relative [animation-delay:120ms]">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br
+                         from-brand-400/25 via-leaf-400/10 to-transparent blur-2xl"
+            />
 
-              <ol className="mt-7 space-y-3">
-                {OPS_STAGES.map((stage, i) => (
-                  <li
-                    key={stage.code}
-                    className="flex items-center gap-4 rounded-xl border border-white/10
-                               bg-white/[0.04] px-4 py-3"
-                  >
-                    <span
-                      className="flex h-9 w-9 flex-none items-center justify-center
-                                 rounded-lg bg-brand-600/40 text-xs font-bold text-white"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex-1 text-[15px] font-medium text-white">
-                      {stage.label}
-                    </span>
-                    <span className="text-xs tracking-wider text-brand-300">
-                      {stage.code}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-
-              <div className="mt-7 flex flex-wrap gap-2 border-t border-white/10 pt-6">
-                {["Real-time", "Role-based", "Audit trail", "Barcode"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/15 px-3 py-1
-                               text-xs font-medium text-brand-200"
-                    >
-                      {tag}
-                    </span>
-                  ),
-                )}
-              </div>
+            <div className="relative overflow-hidden rounded-2xl border border-white/12 shadow-2xl">
+              <Image
+                src={HERO.image}
+                alt={HERO.imageAlt}
+                width={1200}
+                height={900}
+                sizes="(min-width: 1024px) 560px, 100vw"
+                className="h-full w-full object-cover"
+                priority
+              />
             </div>
 
-            <p className="mt-4 flex items-center gap-2 text-xs text-brand-300">
-              <Icon name="chart" className="h-4 w-4" />
-              One record follows the goods from receipt to dispatch.
-            </p>
+            {/* Sits on the panel's lower-left corner. Hidden below sm, where
+                it would cover most of the photograph. */}
+            <div
+              className="absolute -bottom-5 left-4 hidden rounded-xl bg-white px-4 py-3
+                         shadow-lg sm:left-6 sm:block"
+            >
+              <p className="flex items-center gap-2 text-[15px] font-semibold text-ink-900">
+                <span className="h-2.5 w-2.5 rounded-full bg-leaf-500" />
+                {HERO.badge.title}
+              </p>
+              <p className="mt-0.5 text-sm text-ink-600">{HERO.badge.body}</p>
+            </div>
           </div>
         </div>
       </Container>

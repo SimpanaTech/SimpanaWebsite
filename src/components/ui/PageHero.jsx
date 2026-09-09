@@ -10,6 +10,7 @@ import HeroBackdrop from "@/components/ui/HeroBackdrop";
 export default function PageHero({
   crumbs = [],
   title,
+  accent,
   intro,
   backdrop = "network",
   visual,
@@ -27,8 +28,15 @@ export default function PageHero({
         >
           <div>
             <Breadcrumb items={crumbs} onDark />
-            <h1 className="max-w-4xl text-4xl text-white sm:text-5xl lg:text-[52px]">
+            {/* `accent` is the payoff half of the title and is optional:
+                pages whose heading is a single name rather than a two-part
+                statement - a product, a post, a case study - pass none and
+                run in Carter One throughout. */}
+            <h1 className="hero-title max-w-4xl text-[clamp(1.75rem,3.4vw,2.75rem)] text-white">
               {title}
+              {accent ? (
+                <span className="hero-title-accent">{accent}</span>
+              ) : null}
             </h1>
             {intro ? (
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-brand-200">

@@ -1,4 +1,9 @@
-import { Inter, Manrope } from "next/font/google";
+import {
+  Carter_One,
+  Instrument_Serif,
+  Inter,
+  Manrope,
+} from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { SITE } from "@/data/site";
@@ -15,6 +20,29 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+// The hero headline only. Carter One ships a single weight (400) - there is no
+// bold to ask for, so anything that sets 700 on it gets a synthesised fake
+// bold, which smears the rounded terminals. See `.font-hero` usage.
+const carterOne = Carter_One({
+  variable: "--font-carter-one",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+// The hero's payoff line. A high-contrast display serif against Carter One's
+// chunky rounded sans - the jump in structure is what makes the last clause
+// land. Italic only; the roman would just read as a different font rather
+// than a change of voice. Single weight (400), which is by design: it is
+// drawn for display sizes, where 400 carries plenty.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["italic"],
   display: "swap",
 });
 
@@ -60,7 +88,15 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={[
+        manrope.variable,
+        inter.variable,
+        carterOne.variable,
+        instrumentSerif.variable,
+      ].join(" ")}
+    >
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"

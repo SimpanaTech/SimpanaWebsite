@@ -17,7 +17,7 @@ export const PRODUCTS = [
     abbr: "WMS",
     featured: true,
     status: "DEPLOYED / 3PL / DISTRIBUTION / MFG",
-    card: "Goods receipt, quality inspection, put-away, cycle counts, labelling, and dispatch - one connected floor, with role-based screens that cut training time and keep physical and backend in sync.",
+    card: "Receipt, inspection, put-away, cycle counts, labelling, dispatch - one connected floor.",
     short:
       "Turn-key WMS for 3PL, distribution, manufacturing, and fulfilment. Role-based screens simplify goods receipt, quality inspection, storage, and shipping.",
     summary:
@@ -413,74 +413,176 @@ export const SERVICES = [
 ];
 
 /* ------------------------------------------------------------------ *
- * HOME PAGE - the positioning and section copy carried over from the
- * live simpanatech.com home page.
+ * HOME PAGE - copy v2.
+ *
+ * Positioning: services lead, products prove. The seven shipped systems
+ * are not the offer any more; they are the credibility behind the three
+ * service pillars. One primary CTA everywhere ("Book a consultation"),
+ * one secondary ("See what we've built").
  * ------------------------------------------------------------------ */
 
-/** The company statement the live home page opens with. */
-export const POSITIONING = {
-  paragraphs: [
-    "Simpana is all about excellence, passion and flexibility. We have offered world class services in IT consulting, offshore software development, testing and user interface design.",
-    "We work on diverse projects ranging from simple information systems and websites to complex enterprise type architectures, desktop or web-enabled applications, traditional n-tier and service-oriented architectures.",
+export const PRIMARY_CTA = { href: "/contact", label: "Book a consultation" };
+export const SECONDARY_CTA = { href: "/products", label: "See what we’ve built" };
+
+export const HERO = {
+  eyebrow: "IT support · IT consulting · IT solutions — Pune, India",
+  // One clause per service pillar, so the buyer knows what is on offer before
+  // they scroll. `accent` is the clause set in brand blue - the build half,
+  // which is the part no other support shop in Pune can claim.
+  // Typographic apostrophes (U+2019) throughout - a straight one next to a
+  // curly one, stacked, is the kind of mismatch that reads as sloppy at
+  // 50px even to people who cannot name what is wrong.
+  title: {
+    lines: ["We solve what’s broken.", "We improve what works."],
+    accent: "We build what’s next.",
+  },
+  intro:
+    "Simpana is all about excellence, passion and flexibility. We deliver IT consulting, offshore software development, testing and user interface design — from simple information systems to complex enterprise architectures. Three rules get us to the goal: on time, within scope, best service.",
+
+  // TODO: stock stand-in, not Simpana. Replace with a real photograph of the
+  // team, the office, or the server room.
+  image: "/images/hero.webp",
+  imageAlt: "A team gathered around a laptop, working through a plan together.",
+
+  /**
+   * !! UNVERIFIED - DO NOT PUBLISH UNTIL CONFIRMED !!
+   *
+   * Every figure below is a claim about the business that homepage copy v2
+   * listed as an open item ("10+ years experience claim - unverified";
+   * "support response-time / SLA commitment - undefined"). They are wired up
+   * so the design is complete, not because they are known to be true.
+   *
+   * "24/7 Support coverage" also contradicts CONTACT.hours, which says
+   * Mon-Sat, 10:00-19:00 IST. One of the two is wrong.
+   */
+  stats: [
+    { value: "18+", label: "Years in IT services" },
+    { value: "120+", label: "Projects delivered" },
+    { value: "24/7", label: "Support coverage" },
   ],
-  /** "We follow three main rules to get to our goals." */
-  rules: [
-    {
-      no: "01",
-      title: "On time",
-      body: "Delivery dates that hold, because they were planned against the work rather than against the pitch.",
-    },
-    {
-      no: "02",
-      title: "Within scope",
-      body: "What was agreed is what ships. Anything beyond it gets scoped and priced before it starts, not after.",
-    },
-    {
-      no: "03",
-      title: "The best service",
-      body: "Deep, thoughtful process - planned with precision, delivered with responsibility. No surprises at handover.",
-    },
-  ],
+  badge: {
+    title: "All systems monitored",
+    body: "Average response — under 15 min",
+  },
 };
 
-/** "Our services" - the three IT pillars from the live home page. */
+/**
+ * The band under the fold line.
+ * 
+ * TODO: swap for client logos as soon as three can be published with
+ * permission - logos outperform every line of copy on this page.
+ */
+export const HERO_TRUST = [
+  "7 systems built and deployed",
+  "Mon-Sat support, 10:00-19:00 IST",
+  "3PL · Distribution · Manufacturing · Retail · Education",
+  "Wanowarie, Pune",
+];
+
+/** "Three ways we work with a business." */
 export const IT_PILLARS = [
   {
     no: "IT-01",
     icon: "shield",
     title: "IT Support",
-    body: "With top-tier staff and personable IT support you benefit from faster performance, zero downtime, and fewer interruptions. We put a preventative and proactive maintenance programme in place that minimises the need to escalate time-sensitive issues, handle the day-to-day computing workload, and respond rapidly to whatever comes up.",
+    promise:
+      "Fewer interruptions, faster resolution, nothing escalating into a crisis.",
+    body: "Most support contracts are reactive — something breaks, you raise a ticket, you wait. We run a preventative maintenance programme so the ticket mostly doesn't get raised. Day-to-day workload is handled, monitoring is continuous, and the time-sensitive issues get a person, not a queue position.",
+    points: [
+      "Helpdesk and day-to-day user support",
+      "Proactive monitoring and preventative maintenance",
+      "Network and infrastructure management",
+      "Cybersecurity and endpoint protection",
+      "Backup, continuity, and recovery",
+    ],
+    cta: { href: "/contact", label: "Talk to us about support" },
   },
   {
     no: "IT-02",
     icon: "cloud",
     title: "IT Solutions",
-    body: "End-to-end services that empower employees, deliver high-performing networks and smart systems, and improve workflow. Strategic deployment means optimal uptime across every mission-critical area and seamless continuity - tapping into next-generation technology without breaking the bank.",
+    promise:
+      "Systems that fit how you actually work, not how the software assumed you would.",
+    body: "We deploy, integrate, and where necessary build. That includes networks and cloud infrastructure, web and web-application development, and custom systems where nothing on the market matches the process. Our seven products came out of exactly this work.",
+    points: [
+      "Cloud migration, hosting, and scalable infrastructure",
+      "Custom software and web application development",
+      "E-commerce builds and third-party API integration",
+      "System integration across existing tools",
+      "Ongoing maintenance and support",
+    ],
+    cta: { href: "/products", label: "See what we’ve built" },
   },
   {
     no: "IT-03",
     icon: "chart",
     title: "IT Consulting",
-    body: "We take on business consulting projects where we study existing processes and look for ways to enhance, improve, and optimise them. The consulting we do runs deep and is based on a thoughtful process: planned with precision, delivered with responsibility.",
+    promise:
+      "An honest read on what's slowing the business down — and what it costs to fix.",
+    body: "We study the process as it runs today, not as the SOP describes it. Then we tell you where the time and money are going, what's worth changing, and what to leave alone. Planned with precision, delivered with responsibility, no surprises at handover.",
+    points: [
+      "Business process review and optimisation",
+      "Technology and architecture assessment",
+      "Vendor and system selection",
+      "Digital transformation roadmapping",
+    ],
+    cta: { href: "/contact", label: "Book a consultation" },
   },
 ];
 
-/**
- * "What we can offer you" - the three services the live home page features,
- * referenced by number so the copy stays in SERVICES and never forks.
- */
-export const OFFER_SERVICE_NOS = ["S-05", "S-03", "S-06"];
+/** "Three rules we hold ourselves to." */
+export const HOUSE_RULES = [
+  {
+    no: "01",
+    title: "On time",
+    body: "Delivery dates that hold, because they were planned against the work rather than against the pitch.",
+  },
+  {
+    no: "02",
+    title: "Within scope",
+    body: "What was agreed is what ships. Anything beyond it gets scoped and priced before it starts, not after.",
+  },
+  {
+    no: "03",
+    title: "No surprises",
+    body: "Deep, thoughtful process, planned with precision and delivered with responsibility. You hear about problems from us first.",
+  },
+];
 
-export const getOfferServices = () =>
-  OFFER_SERVICE_NOS.map((no) => SERVICES.find((s) => s.no === no)).filter(
-    Boolean,
-  );
-
-/** The closing statement band. */
-export const LEADING = {
-  title: "IT solutions for a more robust environment.",
-  body: "Faster performance, zero downtime, and fewer interruptions - from a team that maintains the environment rather than waiting for it to break.",
+/** "Built for operations that can't stop." */
+export const AUDIENCE = {
+  title: "Built for operations that can't stop.",
+  body: "Whether you run one warehouse or coordinate several, the constraint is the same: the system has to reflect what's physically happening, and it has to keep working on a Tuesday afternoon when everyone's busy.",
 };
+
+/**
+ * "How an engagement starts."
+ *
+ * TODO: add response-time commitments (first response, on-site window) once
+ * they can be stood behind - IT support buyers screen on this first.
+ */
+export const ENGAGEMENT = [
+  {
+    no: "01",
+    title: "Conversation",
+    body: "Tell us what's actually breaking. No pitch deck.",
+  },
+  {
+    no: "02",
+    title: "Assessment",
+    body: "We look at the environment or the process and come back with findings and options.",
+  },
+  {
+    no: "03",
+    title: "Proposal",
+    body: "Scope, timeline, and price, agreed before work begins.",
+  },
+  {
+    no: "04",
+    title: "Delivery and support",
+    body: "We stay on after handover. That's usually the point.",
+  },
+];
 
 export const EDUCATION_BLOCKS = [
   {

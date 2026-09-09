@@ -3,6 +3,8 @@
  * Contact details come from simpanacontent.md (Contact + Global Footer).
  */
 
+import { PRODUCTS } from "@/data/content";
+
 export const SITE = {
   name: "Simpana Technologies",
   shortName: "Simpana",
@@ -22,9 +24,23 @@ export const CONTACT = {
   hours: "Mon-Sat, 10:00-19:00 IST",
 };
 
-/** Primary navigation - rendered in the header and the mobile drawer. */
+/**
+ * Primary navigation - rendered in the header and the mobile drawer.
+ *
+ * An item with `children` renders as a dropdown. Products builds its children
+ * from the catalogue itself, so adding a product to PRODUCTS puts it in the
+ * menu with no second edit. One-way import: content.js holds no site data.
+ */
 export const NAV = [
-  { href: "/products", label: "Products" },
+  {
+    href: "/products",
+    label: "Products",
+    children: PRODUCTS.map((product) => ({
+      href: `/products/${product.slug}`,
+      label: product.name,
+      code: product.code,
+    })),
+  },
   { href: "/services", label: "Services" },
   { href: "/case-studies", label: "Case studies" },
   { href: "/blog", label: "Blog" },

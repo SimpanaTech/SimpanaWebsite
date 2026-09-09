@@ -7,7 +7,7 @@ import Card from "@/components/ui/Card";
 import PageHero from "@/components/ui/PageHero";
 import Section from "@/components/ui/Section";
 import { POSTS, getPost } from "@/data/content";
-import { formatDate } from "@/lib/format";
+import { formatDate, splitHeading } from "@/lib/format";
 
 export function generateStaticParams() {
   return POSTS.map((post) => ({ slug: post.slug }));
@@ -37,6 +37,8 @@ export default async function PostPage({ params }) {
   const post = getPost(slug);
   if (!post) notFound();
 
+  const heading = splitHeading(post.title);
+
   const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
@@ -44,7 +46,8 @@ export default async function PostPage({ params }) {
       <PageHero
         backdrop="pulse"
         crumbs={[{ label: "Blog", href: "/blog" }, { label: post.title }]}
-        title={post.title}
+        title={heading.title}
+        accent={heading.accent}
         intro={post.excerpt}
       >
         <div className="flex flex-wrap gap-2">

@@ -19,7 +19,8 @@ export default function CaseStudiesPage() {
       <PageHero
         backdrop="radar"
         crumbs={[{ label: "Case studies" }]}
-        title="Systems we built, and what they fixed."
+        title="Systems we built,"
+        accent="and what they fixed."
         intro="A few of the operations we have shipped software for. Get in touch for the full write-ups and references."
       />
 

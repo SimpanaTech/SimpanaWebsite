@@ -32,6 +32,15 @@
   --color-leaf-600: #6f9a3f;
   --color-leaf-700: #557a2d;
 
+  /* Ember - the one warm note in an otherwise entirely cool palette, so it
+     is spent in exactly one place: the hero's payoff line. Gold is the
+     classic complement to navy, and against brand-900 it reads far louder
+     than any blue can, which is the point - that clause is the promise.
+     Named `ember` rather than `amber` so it cannot collide with Tailwind's
+     own amber scale, which the form notices already use. */
+  --color-ember-300: #f7d08a;
+  --color-ember-400: #f2b544; /* 8.1:1 on brand-900 */
+
   /* Neutrals - cool greys so they sit with the blues. */
   --color-ink-900: #0f1f2e; /* headings          — 15.9:1 on white */
   --color-ink-800: #1d3245; /* strong body       — 12.2:1 */
@@ -48,6 +57,16 @@
   /* Type */
   --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Hero headline only. Manrope is the fallback rather than a generic sans:
+     if Carter One fails to load, the headline lands on the site's own display
+     face instead of jumping to Arial. */
+  --font-hero:
+    var(--font-carter-one), var(--font-manrope), ui-sans-serif, system-ui,
+    sans-serif;
+  /* Hero payoff line only. Georgia is the fallback so a failed load still
+     lands on a serif and the contrast survives. */
+  --font-hero-accent:
+    var(--font-instrument-serif), Georgia, "Times New Roman", serif;
 
   /* Layout */
   --spacing-container: 1200px;
@@ -149,6 +168,40 @@
   }
   .btn-lg {
     @apply px-7 py-3.5 text-base;
+  }
+
+  /* The hero headline treatment, shared by the home hero, every interior page
+     header, and the 404. Defined once so the whole application's heroes move
+     together.
+
+     All three properties override the base heading rule, and each is a
+     correctness fix rather than taste: Carter One ships a single weight, so
+     700 would be a synthesised fake bold that smears its rounded terminals;
+     its letters are already wide, so the global -0.02em collides the bowls;
+     and its ascenders run long enough that 1.15 leading opens visible gaps
+     between stacked clauses.
+
+     Colour and size stay at the call site - the navy heroes set white, the
+     404 sits on light and keeps the default ink. */
+  .hero-title {
+    font-family: var(--font-hero);
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.12;
+  }
+
+  /* The payoff half of a hero title: face, style and temperature all change
+     at once. Colour alone could not carry the emphasis - a paler blue on the
+     navy read fainter than the white it was meant to outrank. Sized up
+     slightly because the serif's lighter strokes need it to hold their own
+     next to Carter One. */
+  .hero-title-accent {
+    display: block;
+    font-family: var(--font-hero-accent);
+    font-style: italic;
+    font-size: 1.15em;
+    line-height: 1.02;
+    color: var(--color-ember-400);
   }
 
   /* Small uppercase label above a heading. */

@@ -41,7 +41,8 @@ export default function CareersPage() {
       <PageHero
         backdrop="orbit"
         crumbs={[{ label: "Careers" }]}
-        title="Everyone here is capable of greatness."
+        title="Everyone here is"
+        accent="capable of greatness."
         intro="We have built a supportive workplace where each person can grow and do their best work. Send your CV — we will always read a good one."
       >
         <div className="flex flex-wrap gap-2">

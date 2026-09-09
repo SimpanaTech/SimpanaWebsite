@@ -23,7 +23,8 @@ export default function BlogPage() {
       <PageHero
         backdrop="waveform"
         crumbs={[{ label: "Blog" }]}
-        title="Notes from the warehouse floor."
+        title="Notes from"
+        accent="the warehouse floor."
         intro="Practical writing on inventory, warehousing, and the software that runs them."
       />
 

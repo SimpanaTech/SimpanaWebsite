@@ -16,8 +16,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed">
-              Real-time warehouse, inventory, and supply-chain software — built,
-              deployed, and supported from Pune, India.
+              IT support, consulting, and solutions from Pune, India — plus
+              seven supply-chain and business systems we built ourselves.
             </p>
           </div>
 

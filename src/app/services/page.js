@@ -31,7 +31,8 @@ export default function ServicesPage() {
       <PageHero
         backdrop="flow"
         crumbs={[{ label: "Services" }]}
-        title="From consulting to the systems that run daily."
+        title="From consulting to"
+        accent="the systems that run daily."
         intro="We focus on the supply-chain domain — warehousing, inventory, transportation — and build the surrounding software and infrastructure to match."
       >
         <div className="flex flex-wrap gap-2">

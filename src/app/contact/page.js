@@ -23,7 +23,8 @@ export default function ContactPage() {
       <PageHero
         backdrop="beacon"
         crumbs={[{ label: "Contact" }]}
-        title="Let's talk."
+        title="Let’s"
+        accent="talk."
         intro="Tell us about the operation and the problem — we will come back to you soon."
       />
 
